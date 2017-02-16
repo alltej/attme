@@ -8,6 +8,7 @@ import {SigninPage} from "../pages/signin/signin";
 import {SignupPage} from "../pages/signup/signup";
 import {TabsPage} from "../pages/tabs/tabs";
 import {AuthService} from "../services/auth";
+import {AttendancePage} from "../pages/attendance/attendance";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {AuthService} from "../services/auth";
     EventsPage,
     SigninPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    AttendancePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -30,7 +32,8 @@ import {AuthService} from "../services/auth";
     EventsPage,
     SigninPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    AttendancePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService

@@ -1,18 +1,28 @@
-<!--
-  Generated template for the Events page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>events</ion-title>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Events</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <h3 text-center>Select an event</h3>
+  <ion-list>
+    <button
+      ion-item
+      *ngFor="let eventGroup of eventsCollection"
+      [navPush]="attendancePage"
+      [navParams]="eventGroup">
+      <ion-icon [name]="eventGroup.icon" item-left></ion-icon>
+      <h2>{{ eventGroup.event.name | uppercase }}</h2>
+      <p>{{ eventGroup.attendees.length }} Attendees</p>
+    </button>
+  </ion-list>
 </ion-content>
+

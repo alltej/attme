@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import { Event } from "../../data/event.interface";
+import { Attendee } from "../../data/attendee.interface";
+import {AttendancePage} from "../attendance/attendance";
+import events from '../../data/attme-data-simple';
 
-/*
-  Generated class for the Events page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html'
 })
-export class EventsPage {
+export class EventsPage implements OnInit {
+  eventsCollection: {event: Event, attendees: Attendee[], icon: string}[];
+  attendancePage = AttendancePage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EventsPage');
+  ngOnInit() {
+    this.eventsCollection = events;
   }
-
 }
