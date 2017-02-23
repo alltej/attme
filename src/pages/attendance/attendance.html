@@ -19,15 +19,15 @@
           ion-button
           clear
           small
-          (click)="onVote(member)"
-          *ngIf="!isDone(member)">Vote</button>
+          (click)="onUpVote(member)"
+          *ngIf="!isVoted(member)">Vote</button>
         <button
           ion-button
           clear
           small
           color="danger"
-          (click)="onUnvote(member)"
-          *ngIf="isDone(member)">Unvote</button>
+          (click)="onDownVote(member)"
+          *ngIf="isVoted(member)">Unvote</button>
       </ion-col>
     </ion-row>
   </ion-card>

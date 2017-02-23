@@ -32,15 +32,15 @@ export class AttendancePage {
     //   });
     // });
   }
-  onVote(selectedMember: Member){
+  onUpVote(selectedMember: Member){
     console.log('Vote' + selectedMember.firstName);
   }
 
-  onUnvote(selectedMember: Member){
+  onDownVote(selectedMember: Member){
     console.log('UnVote' + selectedMember.firstName);
   }
 
-  isDone(member: Member){
+  isVoted(member: Member){
     //return this.attendanceService.isDone(member);
   }
 
