@@ -1,18 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import { Event } from "../../data/event.interface";
-import { Attendee } from "../../data/attendee.interface";
+import {Component} from '@angular/core';
 import {AttendancePage} from "../attendance/attendance";
-import events from '../../data/attme-data-simple';
+import {FirebaseListObservable} from "angularfire2";
+import {EventsService} from "../../services/eventsSvc";
+import {AlertController} from "ionic-angular";
 
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html'
 })
-export class EventsPage implements OnInit {
-  eventsCollection: {event: Event, attendees: Attendee[], icon: string}[];
+export class EventsPage {
+  //eventsCollection: {event: Event, attendees: Attendee[], icon: string}[];
+  events: FirebaseListObservable<any[]>;
+
   attendancePage = AttendancePage;
 
-  ngOnInit() {
-    this.eventsCollection = events;
+  constructor(private eventsSvc: EventsService,
+              private alertCtrl: AlertController){
+
   }
+
+
+  ionViewWillEnter() {
+    this.events = this.eventsSvc.getEvents();
+    // this.events.subscribe(items => {
+    //   // items is an array
+    //   items.forEach(item => {
+    //     console.log('Item:', item);
+    //   });
+    // });
+  }
+
+  private handleError(errorMessage: string) {
+    const alert = this.alertCtrl.create({
+      title: 'An error occurred!',
+      message: errorMessage,
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
+
 }

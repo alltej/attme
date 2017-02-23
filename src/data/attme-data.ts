@@ -1,7 +1,4 @@
-/**
- * Created by Allan Tejano on 2/16/2017.
- * This will be the master version - TBD
- */
+// deprecate
 
 export default [
   {

@@ -22,6 +22,9 @@ export class SignupPage {
     this.authService.signup(form.value.email, form.value.password)
       .then(data => {
         loading.dismiss();
+        if (data){
+          console.log(data);
+        }
       })
       .catch(error => {
         loading.dismiss();
