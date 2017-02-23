@@ -4,7 +4,7 @@ import {MembersService} from "../../services/membersSvc";
 import {FirebaseListObservable} from "angularfire2";
 import {Member} from "../../models/members";
 import {Attendee} from "../../models/attendee.interface";
-
+import {Event} from "../../models/event.interface";
 @Component({
   selector: 'page-attendance',
   templateUrl: 'attendance.html'
@@ -21,8 +21,8 @@ export class AttendancePage {
 
   ionViewWillEnter() {
     //console.log(this.navParams.data);
-    //this.eventGroup =  {event : this.navParams.data};
     this.eventGroup = { event: this.navParams.data, attendees : [], icon : "brush"};
+    this.eventGroup.event.id = this.navParams.data.$key;
     console.log(this.eventGroup.event);
     this.members = this.membersSvc.getMembers();
     // this.events.subscribe(items => {
