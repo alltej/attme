@@ -12,6 +12,7 @@ import {AttendancePage} from "../pages/attendance/attendance";
 import {firebaseConfig} from "../environments/firebase.config";
 import {AngularFireModule} from "angularfire2";
 import {EventsService} from "../services/eventsSvc";
+import {MembersService} from "../services/membersSvc";
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyBrsOXUmXDkcJycH0m3ujhhzZfk6WviUH0",
@@ -49,7 +50,8 @@ import {EventsService} from "../services/eventsSvc";
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    EventsService
+    EventsService,
+    MembersService
   ]
 })
 

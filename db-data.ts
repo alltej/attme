@@ -1,6 +1,4 @@
-/**
- * Created by Allan Tejano on 2/20/2017.
- */
+//deprecate
 export const dbData = {
   "events" : [
     {

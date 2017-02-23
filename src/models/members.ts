@@ -1,11 +1,10 @@
 /**
  * Created by Allan Tejano on 2/17/2017.
  */
-export class AttMeUser {
+export class Member {
   constructor(
     public lastName: string,
     public firstName: string,
-    public email: string,
-    public aoid: string
+    public memberId: string
   ){}
 }
