@@ -1,3 +1,4 @@
+//TODO: deprecate
 export const environment = {
   production: false,
   firebase: {

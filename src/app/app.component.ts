@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import firebase from 'firebase';
-
+import {firebaseConfig} from "../environments/firebase.config";
 import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
@@ -22,13 +22,7 @@ export class MyApp {
   constructor(platform: Platform,
               private menuCtrl: MenuController,
               private authService: AuthService) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyBrsOXUmXDkcJycH0m3ujhhzZfk6WviUH0",
-      authDomain: "attme-8d4f7.firebaseapp.com",
-      databaseURL: "https://attme-8d4f7.firebaseio.com",
-      storageBucket: "attme-8d4f7.appspot.com",
-      messagingSenderId: "122392523636"
-    });
+    firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.isAuthenticated = true;

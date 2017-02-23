@@ -9,22 +9,17 @@ import {SignupPage} from "../pages/signup/signup";
 import {TabsPage} from "../pages/tabs/tabs";
 import {AuthService} from "../services/auth";
 import {AttendancePage} from "../pages/attendance/attendance";
-//import {firebaseConfig} from "../environments/firebase.config";
+import {firebaseConfig} from "../environments/firebase.config";
 import {AngularFireModule} from "angularfire2";
 import {EventsService} from "../services/eventsSvc";
-//import { environment } from '../environments/environment';
-//import {firebase} from "firebase";
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyBrsOXUmXDkcJycH0m3ujhhzZfk6WviUH0",
-  authDomain: "attme-8d4f7.firebaseapp.com",
-  databaseURL: "https://attme-8d4f7.firebaseio.com",
-  storageBucket: "attme-8d4f7.appspot.com",
-  messagingSenderId: "122392523636"
-};
-
-
-//firebase.initializeApp(firebaseConfig);
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyBrsOXUmXDkcJycH0m3ujhhzZfk6WviUH0",
+//   authDomain: "attme-8d4f7.firebaseapp.com",
+//   databaseURL: "https://attme-8d4f7.firebaseio.com",
+//   storageBucket: "attme-8d4f7.appspot.com",
+//   messagingSenderId: "122392523636"
+// };
 
 @NgModule({
   declarations: [
