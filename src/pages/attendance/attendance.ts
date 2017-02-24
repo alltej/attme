@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertController, NavParams} from 'ionic-angular';
 import {MembersService} from "../../services/membersSvc";
 import {FirebaseListObservable} from "angularfire2";
@@ -10,7 +10,7 @@ import {AttendanceService} from "../../services/attendanceSvc";
   selector: 'page-attendance',
   templateUrl: 'attendance.html'
 })
-export class AttendancePage {
+export class AttendancePage implements OnInit{
   members: FirebaseListObservable<any[]>;
   eventGroup: {event: Event, attendees: Attendee[], icon: string};
 
@@ -21,30 +21,25 @@ export class AttendancePage {
 
   }
 
-  ionViewWillEnter() {
-    //console.log(this.navParams.data);
+  ngOnInit(): void {
     this.eventGroup = { event: this.navParams.data, attendees : [], icon : "brush"};
     this.eventGroup.event.id = this.navParams.data.$key;
-    console.log(this.eventGroup.event);
-    this.members = this.membersSvc.getMembers();
-    // this.events.subscribe(items => {
-    //   // items is an array
-    //   items.forEach(item => {
-    //     console.log('Item:', item);
-    //   });
-    // });
-  }
-  onUpVote(selectedMember: FirebaseListObservable<any>){
-    //console.log( selectedMember);
-    this.attendanceSvc.addAttendee(this.eventGroup.event.id = this.navParams.data.$key,selectedMember);
   }
 
-  onDownVote(selectedMember: Member){
+  ionViewWillEnter() {
+    this.members = this.membersSvc.getMembers();
+  }
+
+  onUpVote(selectedMember: any){
+    this.attendanceSvc.addAttendee(this.eventGroup.event.id, selectedMember.$key);
+  }
+
+  onDownVote(selectedMember: any){
     console.log('UnVote' + selectedMember.firstName);
   }
 
-  isVoted(member: Member){
-    //return this.attendanceService.isDone(member);
+  isVoted(selectedMember: any){
+    return this.attendanceSvc.isVoted(this.eventGroup.event.id, selectedMember.$key);
   }
 
   private handleError(errorMessage: string) {
