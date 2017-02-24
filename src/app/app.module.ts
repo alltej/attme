@@ -13,14 +13,7 @@ import {firebaseConfig} from "../environments/firebase.config";
 import {AngularFireModule} from "angularfire2";
 import {EventsService} from "../services/eventsSvc";
 import {MembersService} from "../services/membersSvc";
-
-// export const firebaseConfig = {
-//   apiKey: "AIzaSyBrsOXUmXDkcJycH0m3ujhhzZfk6WviUH0",
-//   authDomain: "attme-8d4f7.firebaseapp.com",
-//   databaseURL: "https://attme-8d4f7.firebaseio.com",
-//   storageBucket: "attme-8d4f7.appspot.com",
-//   messagingSenderId: "122392523636"
-// };
+import {AttendanceService} from "../services/attendanceSvc";
 
 @NgModule({
   declarations: [
@@ -51,7 +44,8 @@ import {MembersService} from "../services/membersSvc";
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
     EventsService,
-    MembersService
+    MembersService,
+    AttendanceService
   ]
 })
 

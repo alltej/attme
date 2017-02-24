@@ -5,6 +5,7 @@ import {FirebaseListObservable} from "angularfire2";
 import {Member} from "../../models/members";
 import {Attendee} from "../../models/attendee.interface";
 import {Event} from "../../models/event.interface";
+import {AttendanceService} from "../../services/attendanceSvc";
 @Component({
   selector: 'page-attendance',
   templateUrl: 'attendance.html'
@@ -15,6 +16,7 @@ export class AttendancePage {
 
   constructor(private navParams: NavParams,
               private membersSvc: MembersService,
+              private attendanceSvc: AttendanceService,
               private alertCtrl: AlertController){
 
   }
@@ -32,8 +34,9 @@ export class AttendancePage {
     //   });
     // });
   }
-  onUpVote(selectedMember: Member){
-    console.log('Vote' + selectedMember.firstName);
+  onUpVote(selectedMember: FirebaseListObservable<any>){
+    //console.log( selectedMember);
+    this.attendanceSvc.addAttendee(this.eventGroup.event.id = this.navParams.data.$key,selectedMember);
   }
 
   onDownVote(selectedMember: Member){
