@@ -14,20 +14,26 @@
       <p>{{member.firstName}} {{member.lastName}}</p>
     </ion-card-content>
     <ion-row>
-      <ion-col text-right>
+      <ion-col icon-left>
         <button
           ion-button
           clear
           small
           (click)="onUpVote(member)"
-          *ngIf="!isVoted(member)">Vote</button>
+          *ngIf="!isVoted(member)">
+          <ion-icon name="thumbs-up-outline"></ion-icon>
+          <div>{{(getVoteCount(member))}} SDS </div>
+        </button>
         <button
           ion-button
           clear
           small
           color="danger"
           (click)="onDownVote(member)"
-          *ngIf="isVoted(member)">Unvote</button>
+          *ngIf="isVoted(member)">
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>11 Likes</div>
+        </button>
       </ion-col>
     </ion-row>
   </ion-card>

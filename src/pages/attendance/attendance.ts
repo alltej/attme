@@ -42,6 +42,11 @@ export class AttendancePage implements OnInit{
     return this.attendanceSvc.isVoted(this.eventGroup.event.id, selectedMember.$key);
   }
 
+  getVoteCount(selectedMember: any){
+    let c = this.attendanceSvc.getLikeCount(this.eventGroup.event.id, selectedMember.$key);
+    //console.log(c);
+    return c;
+  }
   private handleError(errorMessage: string) {
     const alert = this.alertCtrl.create({
       title: 'An error occurred!',

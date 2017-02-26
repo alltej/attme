@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {FirebaseListObservable, AngularFire} from 'angularfire2';
 import {AuthService} from "./auth";
 import 'rxjs/Rx';
+import {Http} from "@angular/http";
 
 export class vote {
   constructor(
@@ -14,7 +15,8 @@ export class AttendanceService{
 
   constructor(
     private authService: AuthService,
-    private af:AngularFire) {  }
+    private af:AngularFire,
+    private http: Http) {  }
 
   getAttendees(eventId: string): FirebaseListObservable<any[]> {
     return this.af.database.list(`/attendees/${eventId}`);
@@ -135,5 +137,51 @@ export class AttendanceService{
         console.log('eventMemberVoteRef snapshot is null')
       }
     });
+  }
+
+  getLikeCount(eventKey: string, memberKey: string) {
+    return 10;
+    // //console.log(`e: ${eventKey}, m: ${memberKey}`)
+    // let root = `https://attme-8d4f7.firebaseio.com`;
+    // let url = `${root}/attendees/${eventKey}/${memberKey}/votes.json?shallow=true`;
+    // //return this.af.database.list(url);
+    // //return this.af.database.list(url);
+    // //console.log(url);
+    //
+    // // return this.http.get(url)
+    // //   .map(response => response.json());
+    //
+    // let c = 5;
+    // this.http.get(url)
+    //   .map(response => response.json())
+    //   .subscribe(items => {
+    //     //console.log(items);
+    //       if (items!=null){
+    //         c = Object.keys(items).length};
+    //       }
+    //
+    //     );
+    //
+    // //console.log(`ss:${c}`);
+    // return c;
+    // this.http.get('https://your-app-name.firebaseio.com/stages/stageOne.json?shallow=true')
+    //   .map(response => response.json())
+    //   .subscribe(items => Object.keys(items).length)
+
+    //const eventMemberVoteRef = this.af.database.object(url);
+    // eventMemberVoteRef.subscribe(data => {
+    //   // if(data.val()==null) {
+    //   //   eventMemberVoteRef.remove();
+    //   // } else {
+    //   //   console.log('eventMemberVoteRef snapshot is null')
+    //   // }
+    //   if(data.val()==null) {
+    //     console.log('zz')
+    //     let c = eventMemberVoteRef.count;
+    //     console.log(c);
+    //   } else {
+    //     console.log('eventMemberVoteRef snapshot is null')
+    //   }
+    // });
   }
 }
