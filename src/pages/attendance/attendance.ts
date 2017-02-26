@@ -35,7 +35,7 @@ export class AttendancePage implements OnInit{
   }
 
   onDownVote(selectedMember: any){
-    console.log('UnVote' + selectedMember.firstName);
+    this.attendanceSvc.removeAttendee(this.eventGroup.event.id, selectedMember.$key);
   }
 
   isVoted(selectedMember: any){
