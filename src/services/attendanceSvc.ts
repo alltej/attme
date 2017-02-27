@@ -44,14 +44,18 @@ export class AttendanceService{
         return{on : new Date().toISOString()};
         //return {email: 'johndoe@example.com', password: '!@#$1234'};
       } else {
-        console.log('This username is taken. Try another one');
+        //console.log('This username is taken. Try another one');
         //return Promise.reject(Error('username is taken'))
       }
     })
       .then( result => {
         // Good to go, user does not exist
         if (result.committed) {
-          // TODO: Take additional action
+          let voteUrl = `/attendees/${eventKey}/${memberKey}/voteCount`;
+          let tagObs = this.af.database.object(voteUrl);
+          tagObs.$ref.transaction(tagValue => {
+            return tagValue ? tagValue + 1 : 1;
+          });
         }
       })
       .catch( error => {
@@ -99,6 +103,19 @@ export class AttendanceService{
     const itemObservable = this.af.database.object(url);
     itemObservable.remove();
 
+    let voteUrl = `/attendees/${eventKey}/${memberKey}/voteCount`;
+    let tagObs = this.af.database.object(voteUrl);
+    tagObs.$ref.transaction(tagValue => {
+      return tagValue ? tagValue - 1 : 0;
+    });
+  }
+
+  removeAttendeeOrig2(eventKey: string, memberKey: string) {
+    const userId = this.authService.getActiveUser().uid;
+    let url = `/attendees/${eventKey}/${memberKey}/votes/${userId}`;
+    const itemObservable = this.af.database.object(url);
+    itemObservable.remove();
+
     //const eventMemberVoteRef = this.af.database.object(url, { preserveSnapshot: false });
     //const eventMemberVoteRef = this.af.database.object(url);
     // this.af.database.object(url).$ref.transaction(currentValue => {
@@ -140,7 +157,15 @@ export class AttendanceService{
   }
 
   getLikeCount(eventKey: string, memberKey: string) {
-    return 10;
+    let lc = 0;
+    let url = `/attendees/${eventKey}/${memberKey}/voteCount`;
+    var snapshotFinished = this.af.database.object(url,{ preserveSnapshot: true})
+
+    snapshotFinished.subscribe(snapshot => {
+      //console.log(snapshot.val());
+      lc= snapshot.val();
+    });
+    return lc;
     // //console.log(`e: ${eventKey}, m: ${memberKey}`)
     // let root = `https://attme-8d4f7.firebaseio.com`;
     // let url = `${root}/attendees/${eventKey}/${memberKey}/votes.json?shallow=true`;
