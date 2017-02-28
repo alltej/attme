@@ -3,7 +3,6 @@ import {Injectable} from "@angular/core";
 import {FirebaseListObservable, AngularFire} from 'angularfire2';
 import {AuthService} from "./auth";
 import 'rxjs/Rx';
-import {Http} from "@angular/http";
 
 export class vote {
   constructor(

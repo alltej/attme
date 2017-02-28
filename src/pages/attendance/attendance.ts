@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {AlertController, NavParams} from 'ionic-angular';
 import {MembersService} from "../../services/membersSvc";
 import {FirebaseListObservable} from "angularfire2";
-import {Member} from "../../models/members";
 import {Attendee} from "../../models/attendee.interface";
 import {Event} from "../../models/event.interface";
 import {AttendanceService} from "../../services/attendanceSvc";
