@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AttendancePage} from "../attendance/attendance";
 import {FirebaseListObservable} from "angularfire2";
 import {EventsService} from "../../services/eventsSvc";
@@ -8,7 +8,10 @@ import {AlertController} from "ionic-angular";
   selector: 'page-events',
   templateUrl: 'events.html'
 })
-export class EventsPage {
+export class EventsPage implements OnInit{
+  ngOnInit(): void {
+    this.events = this.eventsSvc.getEvents();
+  }
   //eventsCollection: {event: Event, attendees: Attendee[], icon: string}[];
   events: FirebaseListObservable<any[]>;
 
@@ -19,9 +22,17 @@ export class EventsPage {
 
   }
 
+  getAttendanceCount(eventKey: string): number{
+    let ac = 0;
+    //this.af.database.list('/client/posts').map(list=>list.length).subscribe(length=>console.log(length))
+    let acl = this.eventsSvc.getAttendanceCount(eventKey);
+    //console.log(acl);
+    return acl;
+    //  return ac;
+  }
 
   ionViewWillEnter() {
-    this.events = this.eventsSvc.getEvents();
+
     // this.events.subscribe(items => {
     //   // items is an array
     //   items.forEach(item => {

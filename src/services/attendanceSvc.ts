@@ -107,6 +107,31 @@ export class AttendanceService{
     let tagObs = this.af.database.object(voteUrl);
     tagObs.$ref.transaction(tagValue => {
       return tagValue ? tagValue - 1 : 0;
+    }).then(result => {
+        //console.log('resulst');
+        //console.log(result);
+        if (result.committed) {
+          let url = `/attendees/${eventKey}/${memberKey}`;
+          this.af.database.object(url).remove();
+        }
+    });
+  }
+
+  removeAttendeeRC1(eventKey: string, memberKey: string) {
+    const userId = this.authService.getActiveUser().uid;
+    let url = `/attendees/${eventKey}/${memberKey}/votes/${userId}`;
+    const itemObservable = this.af.database.object(url);
+    itemObservable.remove();
+
+    let voteUrl = `/attendees/${eventKey}/${memberKey}/voteCount`;
+    let tagObs = this.af.database.object(voteUrl);
+    tagObs.$ref.transaction(tagValue => {
+      return tagValue ? tagValue - 1 : 0;
+    }).then(result => {
+        if (result == 0){
+          let url = `/attendees/${eventKey}/${memberKey}`;
+          this.af.database.object(url).remove();
+        }
     });
   }
 
@@ -163,7 +188,7 @@ export class AttendanceService{
 
     snapshotFinished.subscribe(snapshot => {
       //console.log(snapshot.val());
-      lc= snapshot.val();
+      lc = snapshot.val();
     });
     return lc;
     // //console.log(`e: ${eventKey}, m: ${memberKey}`)

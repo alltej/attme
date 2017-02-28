@@ -13,7 +13,7 @@
 
 <ion-content padding>
   <h3 text-center>Select an event</h3>
-  <ion-list>
+  <ion-list icon-left>
     <button
       ion-item
       *ngFor="let event of events | async"
@@ -21,9 +21,12 @@
       [navParams]="event">
       <ion-icon mail-open item-left></ion-icon>
       <h2>{{ event.name | uppercase }}</h2>
-      <p>{{ event.when }} </p>
-      <p>{{ event.where }} </p>
-    </button>
-  </ion-list>
+      <p>{{ event.when }} @ {{ event.where }} </p>
+      <div>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <label>{{getAttendanceCount(event.$key)}} attendees</label>
+</div>
+</button>
+</ion-list>
 </ion-content>
 
