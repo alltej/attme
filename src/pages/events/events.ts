@@ -12,7 +12,6 @@ export class EventsPage implements OnInit{
   ngOnInit(): void {
     this.events = this.eventsSvc.getEvents();
   }
-  //eventsCollection: {event: Event, attendees: Attendee[], icon: string}[];
   events: FirebaseListObservable<any[]>;
 
   attendancePage = AttendancePage;
@@ -23,16 +22,10 @@ export class EventsPage implements OnInit{
   }
 
   getAttendanceCount(eventKey: string): number{
-    let ac = 0;
-    //this.af.database.list('/client/posts').map(list=>list.length).subscribe(length=>console.log(length))
-    let acl = this.eventsSvc.getAttendanceCount(eventKey);
-    //console.log(acl);
-    return acl;
-    //  return ac;
+    return this.eventsSvc.getAttendanceCount(eventKey);
   }
 
   ionViewWillEnter() {
-
     // this.events.subscribe(items => {
     //   // items is an array
     //   items.forEach(item => {

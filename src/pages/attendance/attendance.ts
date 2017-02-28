@@ -43,7 +43,7 @@ export class AttendancePage implements OnInit{
   }
 
   getVoteCount(selectedMember: any){
-    let c = this.attendanceSvc.getLikeCount(this.eventGroup.event.id, selectedMember.$key);
+    let c = this.attendanceSvc.getUpVotes(this.eventGroup.event.id, selectedMember.$key);
     //console.log(c);
     return c;
   }
