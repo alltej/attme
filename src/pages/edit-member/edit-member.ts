@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {FormGroup, Validators, FormControl} from "@angular/forms";
-import {FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
-import {Observable} from "rxjs";
 import {MembersService} from "../../services/membersSvc";
-
 
 @Component({
   selector: 'page-edit-member',

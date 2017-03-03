@@ -10,6 +10,8 @@ import {EditEventPage} from "../edit-event/edit-event";
   templateUrl: 'events.html'
 })
 export class EventsPage implements OnInit{
+  private today: Date;
+
   ngOnInit(): void {
     this.events = this.eventsSvc.getEvents();
   }
@@ -20,7 +22,7 @@ export class EventsPage implements OnInit{
   constructor(private eventsSvc: EventsService,
               private navCtrl: NavController,
               private alertCtrl: AlertController){
-
+    this.today = new Date();
   }
 
   getAttendanceCount(eventKey: string): number{
