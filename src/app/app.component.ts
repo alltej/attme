@@ -8,6 +8,7 @@ import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { AuthService } from "../services/auth";
 import {MembersPage} from "../pages/members/members";
+import {MyProfilePage} from "../pages/my-profile/my-profile";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class MyApp {
   signinPage = SigninPage;
   signupPage = SignupPage;
   membersPage = MembersPage;
+  myProfilePage = MyProfilePage;
   isAuthenticated = false;
   @ViewChild('nav') nav: NavController;
 

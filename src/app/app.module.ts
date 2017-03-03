@@ -18,6 +18,7 @@ import {MembersPage} from "../pages/members/members";
 import {MemberPage} from "../pages/member/member";
 import {EditMemberPage} from "../pages/edit-member/edit-member";
 import {EditEventPage} from "../pages/edit-event/edit-event";
+import {MyProfilePage} from "../pages/my-profile/my-profile";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {EditEventPage} from "../pages/edit-event/edit-event";
     MembersPage,
     MemberPage,
     EditMemberPage,
-    EditEventPage
+    EditEventPage,
+    MyProfilePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -51,7 +53,8 @@ import {EditEventPage} from "../pages/edit-event/edit-event";
     MembersPage,
     MemberPage,
     EditMemberPage,
-    EditEventPage
+    EditEventPage,
+    MyProfilePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
