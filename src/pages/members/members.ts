@@ -3,6 +3,7 @@ import {MembersService} from "../../services/membersSvc";
 import {FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
 import {NavController} from "ionic-angular";
 import {MemberPage} from "../member/member";
+import {EditMemberPage} from "../edit-member/edit-member";
 
 @Component({
   selector: 'page-members',
@@ -21,10 +22,10 @@ export class MembersPage {
     //console.log(this.members);
   }
 
-  // onLoadMember(member:FirebaseListObservable<any>){
-  //   console.log(member);
-  //   this.navCtrl.push(MemberPage, {member: member});
-  // }
+  onNewMember(){
+    this.navCtrl.push(EditMemberPage, {mode: 'New'});
+  }
+
   onLoadMember(member:FirebaseObjectObservable<any>){
     console.log(member);
     this.navCtrl.push(MemberPage, {member: member});

@@ -19,17 +19,24 @@ export class MembersService{
   updateMember($key: string, firstName, lastName, memberId) {
     //console.log('update member');
     let url = `/members/${$key}`;
-    let data = {
-      firstName: firstName,
-      lastName: lastName,
-      memberId: memberId
-    }
-    var memberRef = this.af.database.object(url);
+    let data = this.getMemberJson(firstName, lastName, memberId);
+    let memberRef = this.af.database.object(url);
     memberRef.update(data).then(_ => console.log('update!'));
   }
 
   addMember(firstName, lastName, memberId) {
-    console.log('add member');
+    let data = this.getMemberJson(firstName, lastName, memberId);
 
+    let url = `/members`;
+    let membersRef = this.af.database.list(url);
+    membersRef.push(data);
+  }
+
+  private getMemberJson(firstName, lastName, memberId) {
+    return {
+      firstName: firstName,
+      lastName: lastName,
+      memberId: memberId
+    };
   }
 }

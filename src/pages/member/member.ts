@@ -14,9 +14,8 @@ export class MemberPage implements OnInit {
 
   ngOnInit() {
     this.member = this.navParams.get('member');
-    //console.log('MemberPage');
-    console.log(this.member);
   }
+
 
   onEditMember() {
     this.navCtrl.push(EditMemberPage, {mode: 'Edit', member: this.member});
