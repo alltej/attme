@@ -1,24 +1,20 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {MembersService} from "../../services/membersSvc";
+import {FirebaseListObservable} from "angularfire2";
 
-/*
-  Generated class for the Members page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-members',
   templateUrl: 'members.html'
 })
 export class MembersPage {
+  private members: FirebaseListObservable<any[]>;
 
-  constructor() {
-    console.log('members page');
+  constructor(private membersSvc: MembersService,) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MembersPage');
+  ionViewWillEnter() {
+    this.members = this.membersSvc.getMembers();
+    console.log(this.members);
   }
 
 }

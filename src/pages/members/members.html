@@ -1,6 +1,16 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Members</ion-title>
   </ion-navbar>
 
@@ -8,5 +18,12 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <button
+      ion-item
+      *ngFor="let member of members | async">
+      <h2>{{member.firstName}} {{member.lastName}}</h2>
+    </button>
+  </ion-list>
 </ion-content>
+recipe
