@@ -15,6 +15,8 @@ import {EventsService} from "../services/eventsSvc";
 import {MembersService} from "../services/membersSvc";
 import {AttendanceService} from "../services/attendanceSvc";
 import {MembersPage} from "../pages/members/members";
+import {MemberPage} from "../pages/member/member";
+import {EditMemberPage} from "../pages/edit-member/edit-member";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {MembersPage} from "../pages/members/members";
     SignupPage,
     TabsPage,
     AttendancePage,
-    MembersPage
+    MembersPage,
+    MemberPage,
+    EditMemberPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -42,7 +46,9 @@ import {MembersPage} from "../pages/members/members";
     SignupPage,
     TabsPage,
     AttendancePage,
-    MembersPage
+    MembersPage,
+    MemberPage,
+    EditMemberPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,

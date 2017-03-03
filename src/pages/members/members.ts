@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {MembersService} from "../../services/membersSvc";
-import {FirebaseListObservable} from "angularfire2";
+import {FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
+import {NavController} from "ionic-angular";
+import {MemberPage} from "../member/member";
 
 @Component({
   selector: 'page-members',
@@ -9,12 +11,22 @@ import {FirebaseListObservable} from "angularfire2";
 export class MembersPage {
   private members: FirebaseListObservable<any[]>;
 
-  constructor(private membersSvc: MembersService,) {
+  constructor(
+    private navCtrl: NavController,
+    private membersSvc: MembersService) {
   }
 
   ionViewWillEnter() {
     this.members = this.membersSvc.getMembers();
-    console.log(this.members);
+    //console.log(this.members);
   }
 
+  // onLoadMember(member:FirebaseListObservable<any>){
+  //   console.log(member);
+  //   this.navCtrl.push(MemberPage, {member: member});
+  // }
+  onLoadMember(member:FirebaseObjectObservable<any>){
+    console.log(member);
+    this.navCtrl.push(MemberPage, {member: member});
+  }
 }

@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ mode }} Member: {{member.firstName}} {{member.lastName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Firstname</ion-label>
+        <ion-input
+          type="text"
+          formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Lastname</ion-label>
+        <ion-textarea formControlName="lastName"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Member ID</ion-label>
+        <ion-input
+          type="text"
+          formControlName="memberId"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button
+      type="submit"
+      ion-button
+      block
+      [disabled]="!memberForm.valid">{{ mode }} Member</button>
+  </form>
+</ion-content>
+

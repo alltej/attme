@@ -15,4 +15,13 @@ export class MembersService{
       }
     });
   }
+
+  updateMember($key: string, firstName, lastName, memberId) {
+    console.log('update member');
+  }
+
+  addMember(firstName, lastName, memberId) {
+    console.log('add member');
+
+  }
 }

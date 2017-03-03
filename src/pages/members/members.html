@@ -21,7 +21,8 @@
   <ion-list>
     <button
       ion-item
-      *ngFor="let member of members | async">
+      *ngFor="let member of members | async"
+      (click)="onLoadMember(member)">
       <h2>{{member.firstName}} {{member.lastName}}</h2>
     </button>
   </ion-list>

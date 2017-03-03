@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ member.firstName }} {{ member.lastName }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h2>{{ member.firstName }} {{ member.lastName }}</h2>
+        <div class="subtitle">{{ member.emailAddress }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <p>MemberID: {{ member.memberId }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button
+          ion-button
+          outline
+          block
+          (click)="onEditMember()">Edit</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
