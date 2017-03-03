@@ -14,6 +14,7 @@ import {AngularFireModule} from "angularfire2";
 import {EventsService} from "../services/eventsSvc";
 import {MembersService} from "../services/membersSvc";
 import {AttendanceService} from "../services/attendanceSvc";
+import {MembersPage} from "../pages/members/members";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {AttendanceService} from "../services/attendanceSvc";
     SigninPage,
     SignupPage,
     TabsPage,
-    AttendancePage
+    AttendancePage,
+    MembersPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -39,7 +41,8 @@ import {AttendanceService} from "../services/attendanceSvc";
     SigninPage,
     SignupPage,
     TabsPage,
-    AttendancePage
+    AttendancePage,
+    MembersPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,

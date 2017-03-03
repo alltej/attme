@@ -17,6 +17,14 @@
       <button
         ion-item
         icon-left
+        (click)="onLoad(membersPage)"
+        *ngIf="isAuthenticated">
+        <ion-icon name="person"></ion-icon>
+        Members
+      </button>
+      <button
+        ion-item
+        icon-left
         (click)="onLoad(signinPage)"
         *ngIf="!isAuthenticated">
         <ion-icon name="log-in"></ion-icon>

@@ -7,6 +7,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { AuthService } from "../services/auth";
+import {MembersPage} from "../pages/members/members";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class MyApp {
   rootPage: any = TabsPage;
   signinPage = SigninPage;
   signupPage = SignupPage;
+  membersPage = MembersPage;
   isAuthenticated = false;
   @ViewChild('nav') nav: NavController;
 
