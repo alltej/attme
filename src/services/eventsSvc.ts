@@ -25,4 +25,30 @@ export class EventsService{
     });
     return childCount;
   }
+
+  addEvent(name, description, when, where){
+    let data = this.getEventJson(name, description, when, where);
+    let url = `/events`;
+    let eventsRef = this.af.database.list(url);
+    eventsRef.push(data);
+  }
+
+  updateEvent($key: string, name, description, when, where) {
+    //console.log('update member');
+    let url = `/events/${$key}`;
+    let data = this.getEventJson(name, description, when, where);
+    let memberRef = this.af.database.object(url);
+    memberRef.update(data)
+      //.then(_ => console.log('update!'))
+    ;
+  }
+
+  private getEventJson(name, description, when, where) {
+    return {
+      name: name,
+      description: description,
+      when: when,
+      where: where
+    };
+  }
 }

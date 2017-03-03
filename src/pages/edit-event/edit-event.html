@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ mode }} Event</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input
+          type="text"
+          formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>When</ion-label>
+        <ion-input
+          type="text"
+          formControlName="when"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Where</ion-label>
+        <ion-input
+          type="text"
+          formControlName="where"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button
+      type="submit"
+      ion-button
+      block
+      [disabled]="!eventForm.valid">{{ mode }} Event</button>
+  </form>
+</ion-content>

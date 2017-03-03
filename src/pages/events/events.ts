@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AttendancePage} from "../attendance/attendance";
 import {FirebaseListObservable} from "angularfire2";
 import {EventsService} from "../../services/eventsSvc";
-import {AlertController} from "ionic-angular";
+import {AlertController, NavController} from "ionic-angular";
+import {EditEventPage} from "../edit-event/edit-event";
 
 @Component({
   selector: 'page-events',
@@ -17,12 +18,17 @@ export class EventsPage implements OnInit{
   attendancePage = AttendancePage;
 
   constructor(private eventsSvc: EventsService,
+              private navCtrl: NavController,
               private alertCtrl: AlertController){
 
   }
 
   getAttendanceCount(eventKey: string): number{
     return this.eventsSvc.getAttendanceCount(eventKey);
+  }
+
+  onNewEvent(){
+    this.navCtrl.push(EditEventPage, {mode: 'New'});
   }
 
   ionViewWillEnter() {
