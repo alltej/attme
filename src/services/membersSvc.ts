@@ -17,7 +17,15 @@ export class MembersService{
   }
 
   updateMember($key: string, firstName, lastName, memberId) {
-    console.log('update member');
+    //console.log('update member');
+    let url = `/members/${$key}`;
+    let data = {
+      firstName: firstName,
+      lastName: lastName,
+      memberId: memberId
+    }
+    var memberRef = this.af.database.object(url);
+    memberRef.update(data).then(_ => console.log('update!'));
   }
 
   addMember(firstName, lastName, memberId) {
