@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <form #f="ngForm" (ngSubmit)="onSearchMemberId(f)">
+  <form #f="ngForm" (ngSubmit)="onSearchMemberId(f)" *ngIf="isVerified">
     <h3>Verify your member ID</h3>
     <ion-list>
       <ion-item>
@@ -33,15 +33,17 @@
       block
       [disabled]="!f.valid">Search</button>
   </form>
-  <ion-list>
-    <ion-item *ngIf="member">
+
+  <ion-list *ngIf="member">
+    <ion-item >
       <p>{{member.firstName}} {{member.lastName}}</p>
       <p>MemberID: {{member.memberId}}</p>
     </ion-item>
   </ion-list>
   <button
+    *ngIf="member"
     ion-button
-    type="submit"
+    (click)="onConfirmMember(member)"
     block
-    [disabled]="true">Confirm</button>
+    [disabled]="false">Confirm</button>
 </ion-content>

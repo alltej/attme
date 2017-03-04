@@ -1,28 +1,43 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {AuthService} from "../../services/auth";
-import {NgForm} from "@angular/forms";
+import {NgForm, FormGroup} from "@angular/forms";
 import {MembersService} from "../../services/membersSvc";
-import {FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'page-my-profile',
   templateUrl: 'my-profile.html'
 })
-export class MyProfilePage {
+export class MyProfilePage implements OnInit{
+
   private member : any;
+  private isVerified: boolean = false;
+  private memberKey: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private authService: AuthService,
               private memberSvc: MembersService) {}
 
+  ngOnInit(): void {
+    this.memberKey = this.memberSvc.getMemberKeyByUserKey();
+    console.log(`memberKey:${this.memberKey}`);
+    if (this.memberKey!=null) {
+      this.isVerified=true;
+      this.loadMember(this.memberKey);
+    }
+  }
+
   onSearchMemberId(form: NgForm) {
     this.loadMember(form.value.memberId);
-    // this.slService.addItem(form.value.ingredientName, form.value.amount);
     form.reset();
 
+  }
+
+  onConfirmMember(member: any){
+    // console.log('onConfirmMember');
+    // console.log(member);
+    this.memberSvc.confirmMember(member.$key);
   }
 
   private loadMember(memberId:string) {

@@ -2,13 +2,15 @@
 import {Injectable} from "@angular/core";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from 'angularfire2';
 import 'rxjs/add/operator/first';
+import {AuthService} from "./auth";
 
 @Injectable()
 export class MembersService{
   //public member : FirebaseObjectObservable<any>;
   //private member : Array<any>;
 
-  constructor(private af:AngularFire) {
+  constructor(private af:AngularFire,
+              private authService: AuthService,) {
   }
 
   getMembers(): FirebaseListObservable<any[]> {
@@ -46,7 +48,6 @@ export class MembersService{
   }
 
   findMemberId(memberId: string) {
-    //var team = this.af.database.object('/teams/' , { preserveSnapshot: true }).take(1);
     return this.af.database.list(`/members/`, {
       query: {
         orderByChild: 'memberId',
@@ -55,29 +56,67 @@ export class MembersService{
       }
     });
 
-    //return memberRef;
-    // console.log('heel');
-    // console.log(this.member);
-    // return this.member;
-    // this.af.database.list(`/members/`, {
-    //   query: {
-    //     orderByChild: 'memberId',
-    //     equalTo: memberId,
-    //     limitToFirst: 1
-    //   }
-    // }).subscribe(x => {
-    //   if (x.length > 0) {
-    //     // console.log(x.length);
-    //     console.log('match found!');
-    //     console.log(x[0]);
-    //     this.member = x[0];
-    //   }
-    //   else{
-    //     //console.log('match not found')
-    //   }
-    // });
-    // console.log('heel');
-    // console.log(this.member);
-    // return this.member;
+  }
+
+  confirmMember(memberKey: string) {
+    //TODO: need to add validation that this memberKey is not taken by userKey
+    // query the userMember node if a memberKey exists
+    const userKey = this.authService.getActiveUser().uid;
+    let url = `/userMember/${userKey}/${memberKey}`;
+    this.af.database.object(url).$ref.transaction(currentValue => {
+      if (currentValue === null) {
+        return true;
+      } else {
+        //console.log('This username is taken. Try another one');
+        //return Promise.reject(Error('username is taken'))
+      }
+    })
+      .then( result => {
+        // Good to go, user does not exist
+        if (result.committed) {
+          //console.log('user member assoc created');
+          // let voteUrl = `/attendees/${eventKey}/${memberKey}/voteCount`;
+          // let tagObs = this.af.database.object(voteUrl);
+          // tagObs.$ref.transaction(tagValue => {
+          //   return tagValue ? tagValue + 1 : 1;
+          // });
+        }
+      })
+      .catch( error => {
+        // handle error
+      });
+  }
+
+  isVerified() {
+
+    const userKey = this.authService.getActiveUser().uid;
+    let url = `/userMember/${userKey}`;
+    let exists:boolean=false;
+    const userMemberRef = this.af.database.object(url, { preserveSnapshot: true });
+
+    userMemberRef.subscribe(data => {
+      if(data.val()==null) {
+        exists = false;
+      } else {
+        exists = true;
+      }
+    });
+    return exists;
+  }
+
+  public getMemberKeyByUserKey() {
+    const userKey = this.authService.getActiveUser().uid;
+    let url = `/userMember/${userKey}`;
+    let memberKey:any=null;
+    const userMemberRef = this.af.database.object(url, { preserveSnapshot: true });
+
+    userMemberRef
+      .subscribe(data => {
+      if(data.val()!=null) {
+        console.log(data.val());
+        memberKey = data.val();
+      }
+    });
+    return memberKey;
   }
 }
