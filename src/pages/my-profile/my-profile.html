@@ -14,5 +14,34 @@
 
 
 <ion-content padding>
-UNDER-Construction
+  <form #f="ngForm" (ngSubmit)="onSearchMemberId(f)">
+    <h3>Verify your member ID</h3>
+    <ion-list>
+      <ion-item>
+        <!--<ion-label fixed>Member ID</ion-label>-->
+        <ion-input
+          type="text"
+          name="memberId"
+          placeholder="Enter Your Member ID"
+          ngModel
+          required></ion-input>
+      </ion-item>
+    </ion-list>
+    <button
+      ion-button
+      type="submit"
+      block
+      [disabled]="!f.valid">Search</button>
+  </form>
+  <ion-list>
+    <ion-item *ngIf="member">
+      <p>{{member.firstName}} {{member.lastName}}</p>
+      <p>MemberID: {{member.memberId}}</p>
+    </ion-item>
+  </ion-list>
+  <button
+    ion-button
+    type="submit"
+    block
+    [disabled]="true">Confirm</button>
 </ion-content>

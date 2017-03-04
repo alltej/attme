@@ -1,9 +1,12 @@
 
 import {Injectable} from "@angular/core";
-import {FirebaseListObservable, AngularFire} from 'angularfire2';
+import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from 'angularfire2';
+import 'rxjs/add/operator/first';
 
 @Injectable()
 export class MembersService{
+  //public member : FirebaseObjectObservable<any>;
+  //private member : Array<any>;
 
   constructor(private af:AngularFire) {
   }
@@ -40,5 +43,41 @@ export class MembersService{
       lastName: lastName,
       memberId: memberId
     };
+  }
+
+  findMemberId(memberId: string) {
+    //var team = this.af.database.object('/teams/' , { preserveSnapshot: true }).take(1);
+    return this.af.database.list(`/members/`, {
+      query: {
+        orderByChild: 'memberId',
+        equalTo: memberId,
+        limitToFirst: 1
+      }
+    });
+
+    //return memberRef;
+    // console.log('heel');
+    // console.log(this.member);
+    // return this.member;
+    // this.af.database.list(`/members/`, {
+    //   query: {
+    //     orderByChild: 'memberId',
+    //     equalTo: memberId,
+    //     limitToFirst: 1
+    //   }
+    // }).subscribe(x => {
+    //   if (x.length > 0) {
+    //     // console.log(x.length);
+    //     console.log('match found!');
+    //     console.log(x[0]);
+    //     this.member = x[0];
+    //   }
+    //   else{
+    //     //console.log('match not found')
+    //   }
+    // });
+    // console.log('heel');
+    // console.log(this.member);
+    // return this.member;
   }
 }

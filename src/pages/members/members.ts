@@ -27,7 +27,7 @@ export class MembersPage {
   }
 
   onLoadMember(member:FirebaseObjectObservable<any>){
-    console.log(member);
+    //console.log(member);
     this.navCtrl.push(MemberPage, {member: member});
   }
 }
