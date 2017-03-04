@@ -23,9 +23,11 @@
       *ngFor="let event of events | async"
       [navPush]="attendancePage"
       [navParams]="event">
-      <ion-icon [name]="(event.when| date:'MM-dd-yyyy') <= (today| date:'MM-dd-yyyy')?'mail-open':'mail'" item-left></ion-icon>
-      <h2>{{ event.name | uppercase }}</h2>
-      <div>{{ event.when }} @ {{ event.where }} </div>
+      <!--<ion-icon-->
+        <!--[name]="(event.when| date:'MM-dd-yyyy') <= (today| date:'MM-dd-yyyy')?'mail-open':'mail'"-->
+        <!--item-left></ion-icon>-->
+      <h3>{{ event.name | uppercase }}</h3>
+      <p>{{ event.when }} @ {{ event.where }} </p>
       <div>
         <ion-icon name="thumbs-up" color="secondary" *ngIf="getAttendanceCount(event.$key)>0"></ion-icon>
         <label>{{getAttendanceCount(event.$key)}} attendees</label>
