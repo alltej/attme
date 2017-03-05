@@ -1,13 +1,10 @@
 
 import {Injectable} from "@angular/core";
-import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from 'angularfire2';
-import 'rxjs/add/operator/first';
+import {FirebaseListObservable, AngularFire} from 'angularfire2';
 import {AuthService} from "./auth";
 
 @Injectable()
 export class MembersService{
-  //public member : FirebaseObjectObservable<any>;
-  //private member : Array<any>;
 
   constructor(private af:AngularFire,
               private authService: AuthService,) {
@@ -48,6 +45,7 @@ export class MembersService{
   }
 
   findMemberId(memberId: string) {
+    console.log('find: '+ memberId);
     return this.af.database.list(`/members/`, {
       query: {
         orderByChild: 'memberId',
@@ -59,6 +57,7 @@ export class MembersService{
   }
 
   confirmMember(memberKey: string) {
+    console.log('confirm:' + memberKey);
     //TODO: need to add validation that this memberKey is not taken by userKey
     // query the userMember node if a memberKey exists
     const userKey = this.authService.getActiveUser().uid;
@@ -107,16 +106,6 @@ export class MembersService{
   public getMemberKeyByUserKey() {
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userMember/${userKey}`;
-    let memberKey:any=null;
-    const userMemberRef = this.af.database.object(url, { preserveSnapshot: true });
-
-    userMemberRef
-      .subscribe(data => {
-      if(data.val()!=null) {
-        console.log(data.val());
-        memberKey = data.val();
-      }
-    });
-    return memberKey;
+    return this.af.database.list(url, { preserveSnapshot: true });
   }
 }
