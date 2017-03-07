@@ -3,7 +3,14 @@
     ".read": "auth != null",
     ".write": "auth != null",
     "members": {
-      ".indexOn": ["memberId"]
-    }
+      "$id": {
+      			".indexOn": ["memberId"]
+      }
+    },
+    "events": {
+      "$id": {
+        		".indexOn": ["when"]
+      }
+    }      
   }
 }

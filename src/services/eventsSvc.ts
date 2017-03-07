@@ -10,8 +10,8 @@ export class EventsService{
   getEvents(): FirebaseListObservable<any[]> {
     return this.af.database.list('/events', {
       query: {
-        limitToLast: 10,
-        orderByKey: true
+        limitToLast: 50,
+        orderByChild: 'when'
       }});
 
   }
