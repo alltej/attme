@@ -22,48 +22,59 @@ export class MyProfilePage implements OnInit{
 ///ionViewDidLoad, ngOnInit
 
   ngOnInit(): void {
-    console.log('init');
     this.member = null;
-    console.log(this.member);
     this.memberSvc.getMemberKeyByUserKey()
       .subscribe((data) => {
-        if(data.length>0) {
-          this.memberKey = data[0].key;
-          console.log('ty: ' + this.memberKey);
+        if(data.val()!=null) {
+          let memberKey = Object.keys(data.val())[0];//data.val().key;
           this.isVerified=true;
           this.isMemberExists = true;
-        }else{
-          this.isVerified=false;
-          this.isMemberExists=false;
+          this.loadMember(memberKey);
         }
+        // else{
+        //   this.isVerified=false;
+        //   this.isMemberExists=false;
+        // }
       });
-    this.loadMember(this.memberKey);
+  }
+
+  ionViewWillEnter(): void {
+    //console.log('will enter: ' + this.memberKey);
+  }
+
+  ionViewDidEnter() { // THERE IT IS!!!
+    //console.log('did enter: ' + this.memberKey);
   }
 
   onSearchMemberId(form: NgForm) {
-    this.loadMember(form.value.memberId);
+    this.memberSvc.findMemberId(form.value.memberId)
+      .subscribe((data) => {
+        if (data.length>0) {
+          this.memberKey = data[0].key;
+          this.isMemberExists = true;
+          this.loadMember(this.memberKey);
+      }
+      });
     form.reset();
 
   }
 
-  onConfirmMember(member: any){
-    this.memberSvc.confirmMember(member.$key);
+  onConfirmMember(){
+    this.memberSvc.confirmMember(this.memberKey);
     this.isVerified=true;
   }
 
   private loadMember(memberId:string) {
-    console.log('load: ' + memberId);
-    this.memberSvc.findMemberId(memberId)
-      .subscribe(list=>{
-        if (list.length > 0) {
-          this.member = list[0];
-          //console.log('gh: ' + this.member.$key)
-          console.log('ln: ' + this.member.lastName)
-          this.isMemberExists=true;
-        }else{
-          this.isMemberExists=false;
-          this.member = null;
-        }
-      });
+    if (memberId != null){
+      this.memberSvc.getMember(memberId)
+        .subscribe((data)=>{
+          if (data.val()!=null) {
+            this.member = data.val();
+            this.isMemberExists = true;
+          }
+
+        });
+    }
+
   }
 }

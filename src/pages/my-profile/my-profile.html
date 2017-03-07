@@ -35,7 +35,6 @@
   </form>
   <ion-list *ngIf="isMemberExists">
     <ion-item >
-      <h2>{{member?.$key}}</h2>
       <h2>{{member?.firstName}} {{member?.lastName}}</h2>
       <h2>Member ID: {{member?.memberId}}</h2>
     </ion-item>
@@ -43,7 +42,7 @@
   <button
     *ngIf="isMemberExists"
     ion-button
-    (click)="onConfirmMember(member)"
+    (click)="onConfirmMember()"
     block
     color="{{isVerified?'secondary':'danger'}}"
     [disabled]="isVerified">{{isVerified?'Verified':'Confirm It'}}</button>

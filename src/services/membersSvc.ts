@@ -5,6 +5,8 @@ import {AuthService} from "./auth";
 
 @Injectable()
 export class MembersService{
+  public memberKey: string;
+  public isMemberExists: boolean;
 
   constructor(private af:AngularFire,
               private authService: AuthService,) {
@@ -19,7 +21,6 @@ export class MembersService{
   }
 
   updateMember($key: string, firstName, lastName, memberId) {
-    //console.log('update member');
     let url = `/members/${$key}`;
     let data = this.getMemberJson(firstName, lastName, memberId);
     let memberRef = this.af.database.object(url);
@@ -44,27 +45,32 @@ export class MembersService{
     };
   }
 
-  findMemberId(memberId: string) {
-    console.log('find: '+ memberId);
+  findMemberId(memberKey: string) {
+    console.log('find: '+ memberKey);
     return this.af.database.list(`/members/`, {
       query: {
         orderByChild: 'memberId',
-        equalTo: memberId,
+        equalTo: memberKey,
         limitToFirst: 1
-      }
+      },
+      preserveSnapshot: true
     });
+  }
 
+  getMember(memberKey: string) {
+    return this.af.database.object(`/members/${memberKey}`, { preserveSnapshot: true });
   }
 
   confirmMember(memberKey: string) {
-    console.log('confirm:' + memberKey);
+    //console.log('confirm:' + memberKey);
     //TODO: need to add validation that this memberKey is not taken by userKey
     // query the userMember node if a memberKey exists
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userMember/${userKey}/${memberKey}`;
     this.af.database.object(url).$ref.transaction(currentValue => {
       if (currentValue === null) {
-        return true;
+        //return true;
+        return{on : new Date().toISOString()};
       } else {
         //console.log('This username is taken. Try another one');
         //return Promise.reject(Error('username is taken'))
@@ -106,6 +112,6 @@ export class MembersService{
   public getMemberKeyByUserKey() {
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userMember/${userKey}`;
-    return this.af.database.list(url, { preserveSnapshot: true });
+    return this.af.database.object(url, { preserveSnapshot: true });
   }
 }
