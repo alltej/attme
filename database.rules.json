@@ -3,17 +3,18 @@
     ".read": "auth != null",
     ".write": "auth != null",
     "members": {
+      ".indexOn": ["memberId"]
       "$id": {
-      			".indexOn": ["memberId"]
+
       }
     },
     "events": {
+      ".indexOn": "when",
       "$id": {
-        		".indexOn": ["when"],
-              "when": {
+        "when": {
           ".validate": "newData.isString() && newData.val().matches(/^(19|20)[0-9][0-9][-\\/. ](0[1-9]|1[012])[-\\/. ](0[1-9]|[12][0-9]|3[01])$/)"
         }
       }
-    }      
+    }
   }
 }

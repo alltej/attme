@@ -1,21 +1,23 @@
-
+import 'rxjs/add/operator/map';
 import {Injectable} from "@angular/core";
 import {FirebaseListObservable, AngularFire} from 'angularfire2';
 
 @Injectable()
 export class EventsService{
 
-  constructor(private af:AngularFire) {}
+  private startAtFilter: string;
+  constructor(private af:AngularFire) {
+    var newDate = Date.now() + -60*24*3600*1000; // date n days ago in milliseconds UTC
+    this.startAtFilter = new Date(newDate).toISOString();
+  }
 
   getEvents(): FirebaseListObservable<any[]> {
     return this.af.database.list('/events', {
       query: {
         limitToLast: 20,
         orderByChild: 'when',
-        startAt: '2017-02-15',
-
-      }});
-
+        startAt: this.startAtFilter,
+      }})
   }
 
   getAttendanceCount(eventKey: string) : number{
