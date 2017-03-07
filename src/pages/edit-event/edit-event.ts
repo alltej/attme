@@ -55,6 +55,13 @@ export class EditEventPage implements OnInit{
       this.eventsSvc.addEvent(value.name, value.description, value.when, value.where);
     }
     this.eventForm.reset();
+    // let options = {
+    //   reload: 'hello'
+    // };
+
+    this.navParams.get("parentPage").reloadEvents();
+
+    //console.log('popToRoot');
     this.navCtrl.popToRoot();
   }
 }
