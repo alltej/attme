@@ -4,7 +4,7 @@
 import {AuthMethods, AuthProviders} from "angularfire2";
 
 export const firebaseConfig = {
-  apiKey: "",
+  apiKey: "AIzaSyBrsOXUmXDkcJycH0m3ujhhzZfk6WviUH0",
   authDomain: "attme-8d4f7.firebaseapp.com",
   databaseURL: "https://attme-8d4f7.firebaseio.com",
   storageBucket: "attme-8d4f7.appspot.com",
