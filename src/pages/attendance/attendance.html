@@ -8,6 +8,10 @@
 
 
 <ion-content padding>
+  <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+  <div *ngIf="searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
   <ion-card
     *ngFor="let member of members | async">
     <ion-card-content>

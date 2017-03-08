@@ -2,6 +2,8 @@
 import {Injectable} from "@angular/core";
 import {FirebaseListObservable, AngularFire} from 'angularfire2';
 import {AuthService} from "./auth";
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class MembersService{
@@ -114,4 +116,20 @@ export class MembersService{
     let url = `/userMember/${userKey}`;
     return this.af.database.object(url, { preserveSnapshot: true });
   }
+
+  // getMembersWhere(searchTerm: string) {
+  //   // return this.items.filter((item) => {
+  //   //   return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+  //   // });
+  //
+  //   // this.events = this.eventsSvc.getEvents()
+  //   //   .map( (arr) => { return arr.reverse(); } );
+  //
+  //   //TODO: implement filtering
+  //   return this.af.database.list('/members',{
+  //     query: {
+  //       orderByChild: 'firstName'
+  //     }.map((members) => members.filter(member => member.lastName=searchTerm))
+  //   })
+  // }
 }
