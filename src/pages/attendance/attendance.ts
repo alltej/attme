@@ -17,6 +17,8 @@ export class AttendancePage implements OnInit{
   //members: FirebaseListObservable<any[]>;
   members: Observable<any[]>;
   eventGroup: {event: Event, attendees: Attendee[], icon: string};
+  relationship: any;
+
 
   searchControl: FormControl;
   searchTerm: string = '';
@@ -79,6 +81,14 @@ export class AttendancePage implements OnInit{
 
   isVoted(selectedMember: any){
     return this.attendanceSvc.isVoted(this.eventGroup.event.id, selectedMember.$key);
+  }
+
+  selectedAll(){
+    //console.log('selectedAll');
+  }
+
+  selectedCircles(){
+    //console.log('selectedCircles');
   }
 
   getVoteCount(selectedMember: any){

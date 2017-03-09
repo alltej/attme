@@ -12,6 +12,14 @@
   <div *ngIf="searching" class="spinner-container">
     <ion-spinner></ion-spinner>
   </div>
+  <ion-segment [(ngModel)]="relationship" color="primary">
+    <ion-segment-button value="all" (ionSelect)="selectedAll()">
+      All
+    </ion-segment-button>
+    <ion-segment-button value="circles" (ionSelect)="selectedCircles()">
+      Circles
+    </ion-segment-button>
+  </ion-segment>
   <ion-card
     *ngFor="let member of members | async">
     <ion-card-content>
