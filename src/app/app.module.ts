@@ -19,6 +19,7 @@ import {MemberPage} from "../pages/member/member";
 import {EditMemberPage} from "../pages/edit-member/edit-member";
 import {EditEventPage} from "../pages/edit-event/edit-event";
 import {MyProfilePage} from "../pages/my-profile/my-profile";
+import {UserService} from "../services/userSvc";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {MyProfilePage} from "../pages/my-profile/my-profile";
     AuthService,
     EventsService,
     MembersService,
-    AttendanceService
+    AttendanceService,
+    UserService
   ]
 })
 

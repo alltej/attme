@@ -1,23 +1,41 @@
 /**
  * Created by Allan Tejano on 2/16/2017.
  */
-// import firebase from 'firebase';
-// import {AuthService} from "./auth";
-// import {Http} from "@angular/http";
-// import {AngularFireDatabase, FirebaseRef} from "angularfire2";
-// import {Inject} from "@angular/core";
-//
-// export class UserService {
-//   private sdkDb: firebase.database.Reference;
-//   constructor(private db:AngularFireDatabase, @Inject(FirebaseRef) fb,
-//               private http:Http) {
-//
-//     this.sdkDb = fb.database().ref();
-//
-//   }
-//
-//   createUser(email: string) {
-//     //const userId = this.authService.getActiveUser().uid;
-//     //return firebase.auth().createUserWithEmailAndPassword(email, password);
-//   }
-// }
+import 'rxjs/add/operator/map';
+import {Injectable} from "@angular/core";
+import {AngularFire} from 'angularfire2';
+import {AuthService} from "./auth";
+
+@Injectable()
+export class UserService {
+
+  userId:string;
+  constructor(private af:AngularFire,
+    private authService:AuthService) {
+     this.userId = this.authService.getActiveUser().uid;
+  }
+
+  // getUserCircles(): FirebaseListObservable<any[]> {
+  //   return this.af.database.list('/events', {
+  //     query: {
+  //       limitToLast: 20,
+  //       orderByChild: 'when',
+  //       startAt: this.startAtFilter,
+  //     }})
+  // }
+
+  addToMyCircle(memberKey:string){
+    //const userId = this.authService.getActiveUser().uid;
+    //console.log(`addUserCircle+${memberKey}`);
+    let url = `/userCircles/${this.userId}/${memberKey}`;
+    let eventsRef = this.af.database.object(url);
+    eventsRef.set(true);
+  }
+
+  isInMyCircle(memberKey: string) {
+    //const userId = this.authService.getActiveUser().uid;
+    let url = `/userCircles/${this.userId}/${memberKey}`;
+    let circleRef = this.af.database.object(url, { preserveSnapshot: true });
+    return circleRef;
+  }
+}
