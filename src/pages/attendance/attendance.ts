@@ -119,6 +119,17 @@ export class AttendancePage implements OnInit{
       .map((members) =>
         members.filter(member => this.userCircles.indexOf(member.$key) !== -1)
       );
+
+    if (this.searchTerm == null || this.searchTerm == ''){
+      //console.log('setFilteredItems: aa');
+      // this.members = this.membersSvc.getMembers()
+      //   .map((members) => {return members});
+    }else{
+      //return items.filter(item => item.name.toLowerCase().indexOf(args[0].toLowerCase()) !== -1);
+      this.members = this.members
+        .map((members) =>
+          members.filter(member => member.lastName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1 || member.firstName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1));
+    }
   }
 
   getVoteCount(selectedMember: any){
@@ -126,6 +137,7 @@ export class AttendancePage implements OnInit{
     //console.log(c);
     return c;
   }
+
   private handleError(errorMessage: string) {
     const alert = this.alertCtrl.create({
       title: 'An error occurred!',
