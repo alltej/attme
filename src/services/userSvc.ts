@@ -28,8 +28,22 @@ export class UserService {
     //const userId = this.authService.getActiveUser().uid;
     //console.log(`addUserCircle+${memberKey}`);
     let url = `/userCircles/${this.userId}/${memberKey}`;
-    let eventsRef = this.af.database.object(url);
-    eventsRef.set(true);
+    let afRef = this.af.database.object(url);
+    afRef.set(true);
+  }
+
+  getMyCircles(){
+    let circleKeys = [];
+    const userKey = this.authService.getActiveUser().uid;
+    let url = `/userCircles/${userKey}`;
+    this.af.database.list(url, { preserveSnapshot: true})
+      .subscribe(itemKeys=>{
+        itemKeys.forEach(itemKey => {
+          //console.log(itemKey.key);
+          circleKeys.push(itemKey.key);
+        });
+      })
+    return circleKeys;
   }
 
   isInMyCircle(memberKey: string) {
@@ -37,5 +51,11 @@ export class UserService {
     let url = `/userCircles/${this.userId}/${memberKey}`;
     let circleRef = this.af.database.object(url, { preserveSnapshot: true });
     return circleRef;
+  }
+
+  removeToMyCircle(memberKey: string) {
+    let url = `/userCircles/${this.userId}/${memberKey}`;
+    //let afRef = this.af.database.object(url);
+    this.af.database.object(url).remove();
   }
 }

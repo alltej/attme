@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MembersService} from "../../services/membersSvc";
 import {NavController} from "ionic-angular";
 import {MemberPage} from "../member/member";
@@ -8,14 +8,14 @@ import {Observable} from 'rxjs/Rx';
   selector: 'page-members',
   templateUrl: 'members.html'
 })
-export class MembersPage {
+export class MembersPage implements OnInit{
   members: Observable<any[]>;
   constructor(
     private navCtrl: NavController,
     private membersSvc: MembersService) {
   }
 
-  ionViewWillEnter() {
+  ngOnInit() {
     //this.members = this.membersSvc.getMembers();
     this.members = this.membersSvc.getMembers()
       .map( (arr) => { return arr; } );

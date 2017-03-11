@@ -42,7 +42,7 @@ export class MemberPage implements OnInit {
   onRemoveToMyCircle(){
     //console.log('onAddToMyCircle');
     //console.log(memberKey);
-    this.userSvc.addToMyCircle(this.member.$key);
+    this.userSvc.removeToMyCircle(this.member.$key);
   }
 
   // isInMyCircle(memberKey:string){

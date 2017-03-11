@@ -8,6 +8,8 @@ import {AttendanceService} from "../../services/attendanceSvc";
 import {FormControl} from "@angular/forms";
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import {AuthService} from "../../services/auth";
+import {UserService} from "../../services/userSvc";
 
 @Component({
   selector: 'page-attendance',
@@ -18,7 +20,7 @@ export class AttendancePage implements OnInit{
   members: Observable<any[]>;
   eventGroup: {event: Event, attendees: Attendee[], icon: string};
   relationship: any;
-
+  userCircles: any[];
 
   searchControl: FormControl;
   searchTerm: string = '';
@@ -27,7 +29,9 @@ export class AttendancePage implements OnInit{
   constructor(private navParams: NavParams,
               private membersSvc: MembersService,
               private attendanceSvc: AttendanceService,
-              private alertCtrl: AlertController){
+              private alertCtrl: AlertController,
+              private authService: AuthService,
+              private userSvc: UserService){
     this.searchControl = new FormControl();
   }
 
@@ -39,6 +43,8 @@ export class AttendancePage implements OnInit{
     // this.members =this.membersSvc.getMembers()
     //   .map((members) => {return members});
     // console.log('ngOnInit');
+
+    this.userCircles = this.userSvc.getMyCircles();
   }
 
   ionViewDidLoad() {
@@ -71,6 +77,20 @@ export class AttendancePage implements OnInit{
     }
   }
 
+  setFilteredItems1(){
+    if (this.searchTerm == null || this.searchTerm == ''){
+      //console.log('setFilteredItems: aa');
+      this.members = this.membersSvc.getMembers()
+        .map((members) => {return members});
+    }else{
+      //return items.filter(item => item.name.toLowerCase().indexOf(args[0].toLowerCase()) !== -1);
+      this.members = this.membersSvc.getMembers()
+        .map((members) =>
+          members.filter(member => member.lastName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1 || member.firstName.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1)
+        );
+    }
+  }
+
   onUpVote(selectedMember: any){
     this.attendanceSvc.addAttendee(this.eventGroup.event.id, selectedMember.$key);
   }
@@ -84,11 +104,21 @@ export class AttendancePage implements OnInit{
   }
 
   selectedAll(){
-    //console.log('selectedAll');
+    this.members = this.membersSvc.getMembers()
+      .map((members) => {return members});
   }
 
   selectedCircles(){
     //console.log('selectedCircles');
+    //TODO: refactor
+    //let favs = ["-Ke2CyV2BJ5S3_7qcQj5", "-Ke2CyV2BJ5S3_7qcQj6", "-Ke2CyV39UwBuq36wSM6", "-KeKL1A7J2pcCKAPMvIr"];
+    //let userCircles = this.userSvc.getMyCircles();
+    //console.log(favs);
+    this.searching = false;
+    this.members = this.membersSvc.getMembers()
+      .map((members) =>
+        members.filter(member => this.userCircles.indexOf(member.$key) !== -1)
+      );
   }
 
   getVoteCount(selectedMember: any){

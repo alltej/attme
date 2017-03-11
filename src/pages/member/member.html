@@ -33,18 +33,20 @@
         <button
           ion-button
           clear
-          small
+          medium
           (click)="onAddToMyCircle()"
           *ngIf="!isInMyCircle">
           <ion-icon name="heart-outline" color="danger"></ion-icon>
+          <div padding-left>Add To My Circle</div>
         </button>
         <button
           ion-button
           clear
-          small
+          medium
           (click)="onRemoveToMyCircle()"
           *ngIf="isInMyCircle">
           <ion-icon name="heart" color="danger"></ion-icon>
+          <div padding-left>Remove From My Circle</div>
         </button>
       </ion-col>
     </ion-row>
