@@ -13,5 +13,16 @@
 
 
 <ion-content padding>
-
+  <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+  <div *ngIf="searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+  <ion-list>
+    <button
+      ion-item
+      *ngFor="let member of members | async"
+      (click)="onLoadMember(member)">
+      <h2>{{member.firstName}} {{member.lastName}}</h2>
+    </button>
+  </ion-list>
 </ion-content>
