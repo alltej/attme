@@ -34,5 +34,21 @@
       </ion-item>
     </ion-list>
     <button ion-button block type="submit" [disabled]="!f.valid">Signin</button>
+
+    <br/>
+    <button ion-button clear (click)="register()">
+      <ion-icon name='flame'></ion-icon>
+      Create new account</button>
+    <ion-card padding>
+      <img src="assets/images/firebase.png" />
+      <ion-card-content>
+        <ion-card-title>
+          AttME - Attendance Made Easy
+        </ion-card-title>
+        <p>
+          Create profile for free and use your email and password to sign in to AttME App
+        </p>
+      </ion-card-content>
+    </ion-card>
   </form>
 </ion-content>

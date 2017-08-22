@@ -3,14 +3,14 @@
  */
 import 'rxjs/add/operator/map';
 import {Injectable} from "@angular/core";
-import {AngularFire} from 'angularfire2';
+import {AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from "./auth";
 
 @Injectable()
 export class UserService {
 
   userId:string;
-  constructor(private af:AngularFire,
+  constructor(private af:AngularFireDatabase,
     private authService:AuthService) {
      this.userId = this.authService.getActiveUser().uid;
   }
@@ -28,7 +28,7 @@ export class UserService {
     //const userId = this.authService.getActiveUser().uid;
     //console.log(`addUserCircle+${memberKey}`);
     let url = `/userCircles/${this.userId}/${memberKey}`;
-    let afRef = this.af.database.object(url);
+    let afRef = this.af.object(url);
     afRef.set(true);
   }
 
@@ -36,7 +36,7 @@ export class UserService {
     let circleKeys = [];
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userCircles/${userKey}`;
-    this.af.database.list(url, { preserveSnapshot: true})
+    this.af.list(url, { preserveSnapshot: true})
       .subscribe(itemKeys=>{
         itemKeys.forEach(itemKey => {
           //console.log(itemKey.key);
@@ -49,13 +49,13 @@ export class UserService {
   isInMyCircle(memberKey: string) {
     //const userId = this.authService.getActiveUser().uid;
     let url = `/userCircles/${this.userId}/${memberKey}`;
-    let circleRef = this.af.database.object(url, { preserveSnapshot: true });
+    let circleRef = this.af.object(url, { preserveSnapshot: true });
     return circleRef;
   }
 
   removeToMyCircle(memberKey: string) {
     let url = `/userCircles/${this.userId}/${memberKey}`;
     //let afRef = this.af.database.object(url);
-    this.af.database.object(url).remove();
+    this.af.object(url).remove();
   }
 }

@@ -3,51 +3,86 @@ export const dbData = {
   "events" : [
     {
       "id": "E1",
-      "name": "Jan Meetup",
-      "description": "Building hybrid apps",
-      "when": "2017-01-15",
-      "where": "Atl Downtown",
+      "name": "Monthly Assembly",
+      "description": "feb monthly assembly",
+      "when": "2017-02-15",
+      "where": "St Benedict Church, Johns Creek, GA",
       "tags": [{
-        "xamarin": true
+        "assembly": true
       }],
-      "category": "meetup"
+      "category": "assembly"
     },
     {
       "id": "E2",
-      "name": "Mar Disqus",
-      "description": "Angular 2 Conf",
+      "name": "Ancop Walk",
+      "description": "",
       "when": "2017-03-15",
-      "where": "SFHS",
+      "where": "TBD",
       "tags": [{
-        "angular2": true
+        "ancop": true
       }],
-      "category": "conference"
+      "category": "ancop"
+    },
+    {
+      "id": "E2",
+      "name": "Week 12 HH Meeting",
+      "description": "",
+      "when": "2017-03-06",
+      "where": "HH Host",
+      "tags": [{
+        "hh": true
+      }],
+      "category": "hh-meeting"
     }
   ],
   "members": [
     {
       "id": "M1",
-      "lastName": "Hello",
-      "firstName": "World",
-      "memberId": "AO11"
+      "lastName": "Alex",
+      "firstName": "B",
+      "memberId": "111"
     },
     {
       "id": "M2",
-      "lastName": "Peter",
-      "firstName": "Smith",
-      "memberId": "AO12"
+      "lastName": "Arnel",
+      "firstName": "B",
+      "memberId": "112"
     },
     {
       "id": "M3",
-      "lastName": "John",
-      "firstName": "Smith",
-      "memberId": "AO13"
+      "lastName": "Ron",
+      "firstName": "P",
+      "memberId": "113"
+    },,
+    {
+      "id": "M3",
+      "lastName": "Anna",
+      "firstName": "P",
+      "memberId": "1131"
     },
     {
       "id": "M4",
-      "lastName": "Jenn",
-      "firstName": "Kwan",
-      "memberId": "AO14"
+      "lastName": "Roy",
+      "firstName": "R",
+      "memberId": "114"
+    },
+    {
+      "id": "M4",
+      "lastName": "Mike",
+      "firstName": "L",
+      "memberId": "115"
+    },
+    {
+      "id": "M4",
+      "lastName": "Alma",
+      "firstName": "L",
+      "memberId": "1151"
+    },
+    {
+      "id": "M4",
+      "lastName": "Julio",
+      "firstName": "E",
+      "memberId": "116"
     }
   ],
   "attendees": [

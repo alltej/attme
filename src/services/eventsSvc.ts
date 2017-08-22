@@ -1,18 +1,18 @@
 import 'rxjs/add/operator/map';
 import {Injectable} from "@angular/core";
-import {FirebaseListObservable, AngularFire} from 'angularfire2';
+import {FirebaseListObservable, AngularFireDatabase} from 'angularfire2/database';
 
 @Injectable()
 export class EventsService{
 
   private startAtFilter: string;
-  constructor(private af:AngularFire) {
+  constructor(private af:AngularFireDatabase) {
     var newDate = Date.now() + -60*24*3600*1000; // date n days ago in milliseconds UTC
     this.startAtFilter = new Date(newDate).toISOString();
   }
 
   getEvents(): FirebaseListObservable<any[]> {
-    return this.af.database.list('/events', {
+    return this.af.list('/events', {
       query: {
         limitToLast: 20,
         orderByChild: 'when',
@@ -23,7 +23,7 @@ export class EventsService{
   getAttendanceCount(eventKey: string) : number{
     let childCount = 0;
     let attendeesUrl = `/attendees/${eventKey}`;
-    const lists = this.af.database.object(attendeesUrl, { preserveSnapshot: true });
+    const lists = this.af.object(attendeesUrl, { preserveSnapshot: true });
     lists.subscribe(snapshot => {
       childCount = snapshot.numChildren();
     });
@@ -33,7 +33,7 @@ export class EventsService{
   addEvent(name, description, when, where){
     let data = this.getEventJson(name, description, when, where);
     let url = `/events`;
-    let eventsRef = this.af.database.list(url);
+    let eventsRef = this.af.list(url);
     eventsRef.push(data);
   }
 
@@ -41,7 +41,7 @@ export class EventsService{
     //console.log('update member');
     let url = `/events/${$key}`;
     let data = this.getEventJson(name, description, when, where);
-    let memberRef = this.af.database.object(url);
+    let memberRef = this.af.object(url);
     memberRef.update(data)
       //.then(_ => console.log('update!'))
     ;

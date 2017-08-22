@@ -1,6 +1,6 @@
 
 import {Injectable} from "@angular/core";
-import {FirebaseListObservable, AngularFire} from 'angularfire2';
+import {FirebaseListObservable, AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from "./auth";
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -10,12 +10,12 @@ export class MembersService{
   public memberKey: string;
   public isMemberExists: boolean;
 
-  constructor(private af:AngularFire,
+  constructor(private af:AngularFireDatabase,
               private authService: AuthService,) {
   }
 
   getMembers(): FirebaseListObservable<any[]> {
-    return this.af.database.list('/members',{
+    return this.af.list('/members',{
       query: {
         orderByChild: 'firstName'
       }
@@ -25,7 +25,7 @@ export class MembersService{
   updateMember($key: string, firstName, lastName, memberId) {
     let url = `/members/${$key}`;
     let data = this.getMemberJson(firstName, lastName, memberId);
-    let memberRef = this.af.database.object(url);
+    let memberRef = this.af.object(url);
     memberRef.update(data)
       //.then(_ => console.log('update!'))
     ;
@@ -35,7 +35,7 @@ export class MembersService{
     let data = this.getMemberJson(firstName, lastName, memberId);
 
     let url = `/members`;
-    let membersRef = this.af.database.list(url);
+    let membersRef = this.af.list(url);
     membersRef.push(data);
   }
 
@@ -49,7 +49,7 @@ export class MembersService{
 
   findMemberId(memberKey: string) {
     console.log('find: '+ memberKey);
-    return this.af.database.list(`/members/`, {
+    return this.af.list(`/members/`, {
       query: {
         orderByChild: 'memberId',
         equalTo: memberKey,
@@ -60,7 +60,7 @@ export class MembersService{
   }
 
   getMember(memberKey: string) {
-    return this.af.database.object(`/members/${memberKey}`, { preserveSnapshot: true });
+    return this.af.object(`/members/${memberKey}`, { preserveSnapshot: true });
   }
 
   confirmMember(memberKey: string) {
@@ -69,7 +69,7 @@ export class MembersService{
     // query the userMember node if a memberKey exists
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userMember/${userKey}/${memberKey}`;
-    this.af.database.object(url).$ref.transaction(currentValue => {
+    this.af.object(url).$ref.transaction(currentValue => {
       if (currentValue === null) {
         //return true;
         return{on : new Date().toISOString()};
@@ -99,7 +99,7 @@ export class MembersService{
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userMember/${userKey}`;
     let exists:boolean=false;
-    const userMemberRef = this.af.database.object(url, { preserveSnapshot: true });
+    const userMemberRef = this.af.object(url, { preserveSnapshot: true });
 
     userMemberRef.subscribe(data => {
       if(data.val()==null) {
@@ -114,7 +114,7 @@ export class MembersService{
   public getMemberKeyByUserKey() {
     const userKey = this.authService.getActiveUser().uid;
     let url = `/userMember/${userKey}`;
-    return this.af.database.object(url, { preserveSnapshot: true });
+    return this.af.object(url, { preserveSnapshot: true });
   }
 
   // getMembersWhere(searchTerm: string) {

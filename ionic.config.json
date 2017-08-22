@@ -1,6 +1,6 @@
 {
   "name": "attme",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+  "app_id": "4d0e6800",
+  "integrations": {},
+  "type": "ionic-angular"
 }

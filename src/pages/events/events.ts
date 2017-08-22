@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AttendancePage} from "../attendance/attendance";
-import {FirebaseListObservable} from "angularfire2";
+import {FirebaseListObservable} from "angularfire2/database";
 import {EventsService} from "../../services/eventsSvc";
 import {AlertController, NavController, NavParams} from "ionic-angular";
 import {EditEventPage} from "../edit-event/edit-event";
